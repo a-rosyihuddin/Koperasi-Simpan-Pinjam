@@ -14,5 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('surat-perjanjian');
+});
+
+Route::get('/contoh', function () {
+    return view('contoh');
+});
+Route::get('/1', function () {
+    return view('PERJANJIAN-HUTANG');
 });

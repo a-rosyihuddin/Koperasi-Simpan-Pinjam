@@ -1,0 +1,51 @@
+body {
+    font-family: "Times New Roman", Times, Verdana;
+    font-size: 12pt;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    line-height: 28px;
+}
+
+body table{
+    line-height: 28px;
+}
+
+#container-surat {
+    margin: 0 auto;
+    padding: 10px;
+    width: 180mm;
+    background-color: #fff;
+}
+
+.nomor-surat {
+    padding: 0% 0% 0% 25%;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.tab-size{
+    padding-left: 1cm;
+}
+
+.tab-size1{
+    padding-left: 10px;
+}
+
+
+.judul{
+    margin-bottom: 0px;
+    font-size: 23pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pasal{
+    text-align: center;
+    font-weight: bold;
+}
+
+.ttd{
+    width: 100%;
+    text-align: center;
+}
