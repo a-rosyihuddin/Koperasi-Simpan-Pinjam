@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('surat-perjanjian');
+    return view('index');
 });
 
 Route::get('/contoh', function () {
