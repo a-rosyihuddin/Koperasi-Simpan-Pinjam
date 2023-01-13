@@ -13,12 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surat__perjanjians', function (Blueprint $table) {
+        Schema::create('jaminans', function (Blueprint $table) {
             $table->id();
-            $table->string("nomor_surat")->uniqid;
             $table->foreignId('peminjam_id')->constrained('peminjams', 'id');
-            $table->foreignId('user_id')->constrained('users', 'id');
-            $table->date("tanggal_pembuatan");
+            $table->integer('jumlah_jaminan');
+            $table->string('roda');
+            $table->string('merk');
+            $table->string('tahun');
+            $table->string('warna');
+            $table->string('nomor_polisi');
+            $table->string('nomor_rangka');
+            $table->string('nomor_mesin');
+            $table->string('nomor_bpkb');
             $table->timestamps();
         });
     }
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat__perjanjians');
+        Schema::dropIfExists('jaminans');
     }
 };

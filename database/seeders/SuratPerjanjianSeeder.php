@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Surat_Perjanjian;
 use Illuminate\Database\Seeder;
 
 class SuratPerjanjianSeeder extends Seeder
@@ -14,6 +14,11 @@ class SuratPerjanjianSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Surat_Perjanjian::create([
+            'nomor_surat' => '1/21',
+            'peminjam_id' => 1,
+            'user_id' => 1,
+            'tanggal_pembuatan' => '2023-11-11'
+        ]);
     }
 }
