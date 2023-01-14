@@ -14,4 +14,9 @@ class Peminjam extends Model
     {
         return $this->hasMany(Surat_Perjanjian::class);
     }
+
+    public function jaminan()
+    {
+        return $this->hasMany(Jaminan::class);
+    }
 }

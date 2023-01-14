@@ -13,7 +13,7 @@ class StoreSurat_PerjanjianRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

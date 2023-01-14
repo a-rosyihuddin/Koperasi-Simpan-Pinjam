@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peminjam;
+use Carbon\Carbon;
 
 class SuratContrroller extends Controller
 {
@@ -48,12 +49,16 @@ class SuratContrroller extends Controller
 
     public function surat(Peminjam $peminjam)
     {
+        setlocale(LC_ALL, 'IND');
         return View(
             'surat-perjanjian',
             [
                 'data' => $peminjam,
-                'terbilang' => ucwords($this->pembilang($peminjam->nominal_pinjaman)),
-                'terbilang_waktu_pelunasan' => ucwords($this->pembilang($peminjam->waktu_pelunasan))
+                'terbilang_nominal' => ucwords($this->pembilang($peminjam->nominal_pinjaman)),
+                'terbilang_waktu_pelunasan' => ucwords($this->pembilang($peminjam->waktu_pelunasan)),
+                'terbilang_jumlah_jaminan' => ucwords($this->pembilang($peminjam->jumlah_jaminan)),
+                'today' => Carbon::now()->translatedFormat('d F Y'),
+                'terbilang_angsuran' => ucwords($this->pembilang($peminjam->angsuran)),
             ]
         );
     }

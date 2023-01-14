@@ -10,7 +10,7 @@
                                 <h6 class="mb-0">Data Peminjam</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="fas fa-plus"
+                                <a class="btn bg-gradient-dark mb-0" href="/create"><i class="fas fa-plus"
                                         aria-hidden="true"></i>&nbsp;&nbsp;Tambah Data</a>
                             </div>
                         </div>
@@ -52,9 +52,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @dd($peminjam->surat_perjanjian) --}}
                                     @foreach ($peminjam as $pj)
-                                        {{-- @dd($pj->surat_perjanjian::first()) --}}
                                         <tr>
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center"

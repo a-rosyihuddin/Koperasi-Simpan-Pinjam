@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('waktu_pelunasan');
             $table->integer('total_pinjaman');
             $table->integer('jumlah_jaminan');
+            $table->string('bunga');
+            $table->string('angsuran');
             $table->timestamps();
         });
     }

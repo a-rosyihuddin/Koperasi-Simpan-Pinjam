@@ -60,7 +60,7 @@
         <p><span class="tab-size"></span>
             PIHAK KESATU menerangkan, bahwa PIHAK KESATU benar-benar dengan sah berhutang kepada PIHAK KEDUA karena
             pinjaman uang sebesar Rp. {{ number_format($data->nominal_pinjaman, 2, ',', '.') }}
-            ({{ $terbilang }} Rupiah)
+            ({{ $terbilang_nominal }} Rupiah)
             yang telah
             diterima
             PIHAK KESATU dari PIHAK KEDUA di kantor PIHAK KEDUA.
@@ -79,13 +79,17 @@
         <div class="pasal">PASAL 1</div>
         <p>
             Hutang sebesar Rp. {{ number_format($data->nominal_pinjaman, 2, ',', '.') }}
-            ({{ $terbilang }} Rupiah) Ditambah dengan jasa pinjaman yang telah ditentukan ............% Setiap bulan
-            selama..............( ...) bulan menjadi sebesar Rp: ………. (……) harus dilunasi dalam jangka waktu
+            ({{ $terbilang_nominal }} Rupiah) Ditambah dengan jasa pinjaman yang telah ditentukan {{ $data->bunga }}%
+            Setiap bulan selama {{ $data->angsuran }} ({{ $terbilang_angsuran }}) bulan menjadi sebesar Rp: ……….
+            (……)
+            harus dilunasi dalam
+            jangka waktu
             {{ $data->waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan ketentuan: <br>
             ........................ <br>
-            pembayaran angsuran harus dilakukan paling lambat pada setiap tanggal ............. dan untuk pertama
-            kalinya dimulai pada tanggal ............. dan demikian seterusnya hingga berakhir paling
-            lambat pada tanggal ..................... <br>
+            pembayaran angsuran harus dilakukan paling lambat pada setiap tanggal
+            {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan untuk pertama
+            kalinya dimulai pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan demikian seterusnya
+            hingga berakhir paling lambat pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} <br>
             Jasa Pinjaman sewaktu-waktu dapat berubah sesuai dengan suku bunga
             pasar. Perubahan jasa
             pinjaman diberitahukan
@@ -103,7 +107,7 @@
             Dalam hal PIHAK KESATU tidak membayar salah satu angsuran tepat pada waktunya sebagaimana telah ditentukan
             dalam Pasal 1 akta ini, maka PIHAK KESATU sudah dinyatakan lalai walaupun tanpa peringatan atau teguran baik
             lisan maupun tertulis terlebih dahulu, dan oleh sebab itu PIHAK KESATU dikenakan sanksi keterlambatan atau
-            kewajiban membayar penggantian kerugian kepada PIHAK KEDUA sebesar : 0,5 % ( Nol Koma Lima Persen Juntuk
+            kewajiban membayar penggantian kerugian kepada PIHAK KEDUA sebesar : 0,5 % ( Nol Koma Lima Persen ) untuk
             setiap hari keterlambatannya. Yaitu keterlambatan tiap-tiap bulan jatuh tempo ANGSURAN/JASAPINJAMAN/POKOK.
             <br>
             Dan bilamana dalam waktu 7 (Tujuh) hari setelah pembayaran satu angsuran terbit PIHAK KESATU belum juga
@@ -177,7 +181,9 @@
             pokok, jasa pinjaman dan biaya lainnya kepada PIHAK KEDUA dengan tertib dan sebagaimana mestinya, sesuai
             dengan apa yang diperjanjikan menurut akta ini, maka PIHAK KESATU dengan Akta Fiduciaire tertanggal hari ini
             memberi jaminan secara Fiduciaire kepada PIHAK KEDUA atas barang milik PIHAK KESATU yang diserahkan sebagai
-            jaminan berupa : ……… (…….) unit kendaraan bermotor roda …….. (…….) beserta BPKB-nya, data-data sebagai
+            jaminan berupa : {{ $data->jumlah_jaminan }} ({{ $terbilang_jumlah_jaminan }}) unit kendaraan bermotor
+            roda …….. (…….) beserta
+            BPKB-nya, data-data sebagai
             berikut :
 
         <table>
@@ -250,7 +256,7 @@
             Untuk segala urusan mengenai perjanjian ini dengan akibat-akibatnya, kedua belah pihak memilih domisili yang
             tetap dan umum di Kantor Panitera Pengadilan Negeri di Gresik.
         </p>
-        <div style="text-align: right" class="mb-2">Gresik, 07 Januari 2023</div>
+        <div style="text-align: right" class="mb-2">Gresik, {{ $today }}</div>
         <table class="ttd">
             <tr>
                 <td>PIHAK KEDUA :</td>
@@ -259,7 +265,7 @@
             <tr style="height: 2cm"></tr>
             <tr>
                 <td>...............................</td>
-                <td>...............................</td>
+                <td>{{ $data->nama_peminjam }}</td>
             </tr>
             <tr style="height: 20px"></tr>
             <tr>

@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function surat_perjanjian()
+    {
+        return $this->hasMany(Surat_Perjanjian::class);
+    }
 }

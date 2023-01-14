@@ -14,4 +14,8 @@ class Surat_Perjanjian extends Model
     {
         return $this->belongsTo(Peminjam::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
