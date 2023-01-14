@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PeminjamController;
+use App\Http\Controllers\SuratContrroller;
+use App\Models\Peminjam;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
-Route::get('/contoh', function () {
-    return view('contoh');
-});
-Route::get('/1', function () {
-    return view('PERJANJIAN-HUTANG');
-});
+Route::resource('/', PeminjamController::class);
+Route::get('/surat/{peminjam:id}', [SuratContrroller::class, 'surat']);
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+// Route::get('/contoh', function () {
+//     return view('contoh');
+// });
+// Route::get('/1', function () {
+//     return view('PERJANJIAN-HUTANG');
+// });

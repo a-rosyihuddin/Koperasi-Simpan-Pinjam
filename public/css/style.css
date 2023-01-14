@@ -49,3 +49,7 @@ body table{
     width: 100%;
     text-align: center;
 }
+
+.pd-lf{
+    padding-left: 10px;
+}

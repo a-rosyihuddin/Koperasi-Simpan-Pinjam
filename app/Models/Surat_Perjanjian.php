@@ -9,4 +9,9 @@ class Surat_Perjanjian extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function peminjam()
+    {
+        return $this->belongsTo(Peminjam::class);
+    }
 }

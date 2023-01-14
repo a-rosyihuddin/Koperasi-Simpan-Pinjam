@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePeminjamRequest;
 use App\Http\Requests\UpdatePeminjamRequest;
 use App\Models\Peminjam;
+use Illuminate\Contracts\View\View;
 
 class PeminjamController extends Controller
 {
@@ -15,7 +16,10 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        //
+        return View(
+            'index',
+            ['peminjam' => Peminjam::orderBy('id', 'DESC')->get()]
+        );
     }
 
     /**

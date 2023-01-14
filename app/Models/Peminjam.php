@@ -9,4 +9,9 @@ class Peminjam extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function surat_perjanjian()
+    {
+        return $this->hasMany(Surat_Perjanjian::class);
+    }
 }

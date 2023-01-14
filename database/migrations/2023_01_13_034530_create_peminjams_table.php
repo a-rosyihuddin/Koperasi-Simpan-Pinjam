@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('pekerjaan');
             $table->integer('nominal_pinjaman');
-            $table->date('waktu_pelunasan');
+            $table->string('waktu_pelunasan');
             $table->integer('total_pinjaman');
             $table->integer('jumlah_jaminan');
             $table->timestamps();

@@ -12,28 +12,29 @@
 </head>
 
 <body>
+    {{-- @dd($data) --}}
     <div id="container-surat">
         <div class="judul"><u>PERJANJIAN HUTANG</u>
         </div>
         <div class="nomor-surat">
-            <p class="fst-italic">Nomor : </p>
+            <p class="fst-italic">Nomor : {{ $data->surat_perjanjian[0]->nomor_surat }}</p>
         </div>
         <p class="tab-size" style="margin-bottom: 5px">Kami yang bertanda tangan dibawah ini :</p>
         <table style="margin-bottom:10px;">
             <tr>
                 <td>Nama</td>
-                <td class="tab-size1">:</td>
-                <td></td>
+                <td class="tab-size1">: </td>
+                <td class="pd-lf">{{ $data->nama_peminjam }}</td>
             </tr>
             <tr>
                 <td>Alamat</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->alamat }}</td>
             </tr>
             <tr>
                 <td>Pekerjaan</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->pekerjaan }}</td>
             </tr>
         </table>
         <p class="tab-size" style="margin-bottom: 2px">Yang berhutang, dan selanjutnya disebut <span
@@ -42,13 +43,13 @@
             <tr>
                 <td>Nama</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf"></td>
             </tr>
             <tr>
                 <td class="align-top">Pekerjaan</td>
                 <td class="tab-size1 align-top">:</td>
-                <td>Pengelola KSP CITRA ABADI berkedudukan di Jl. Raya Deandles - GRESIK (Timur Kantor Kel. Sambi
-                    Pondok) Telp. 0812 3502 0022-0857 332 99987, yang Berpiutang</td>
+                <td class="pd-lf">Pengelola KSP CITRA ABADI berkedudukan di Jl. Raya Deandles - GRESIK (Timur Kantor
+                    Kel. Sambi Pondok) Telp. 0812 3502 0022-0857 332 99987, yang Berpiutang</td>
             </tr>
         </table>
         <p><span class="tab-size"></span>
@@ -58,11 +59,16 @@
 
         <p><span class="tab-size"></span>
             PIHAK KESATU menerangkan, bahwa PIHAK KESATU benar-benar dengan sah berhutang kepada PIHAK KEDUA karena
-            pinjaman uang sebesar Rp………… (……..) yang telah diterima PIHAK KESATU dari PIHAK KEDUA di kantor PIHAK KEDUA.
+            pinjaman uang sebesar Rp. {{ number_format($data->nominal_pinjaman, 2, ',', '.') }}
+            ({{ $terbilang }} Rupiah)
+            yang telah
+            diterima
+            PIHAK KESATU dari PIHAK KEDUA di kantor PIHAK KEDUA.
             <br>
-            Pada tanggal …………. dan untuk penerimaan uang tersebut akta ini dinyatakan berlaku sebagai tanda
-            penerimaan
-            yang sah (Kwitansi) dan PIHAK KEDUA dengan ini menerima dengan baik Perjanjian Hutang dari PIHAK KESATU
+            Pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan untuk penerimaan uang tersebut akta
+            ini dinyatakan berlaku sebagai tanda
+            penerimaan yang sah (Kwitansi) dan PIHAK KEDUA dengan ini menerima dengan baik Perjanjian Hutang dari PIHAK
+            KESATU
             tersebut.
         </p>
         <p><span class="tab-size"></span>
@@ -72,9 +78,10 @@
 
         <div class="pasal">PASAL 1</div>
         <p>
-            Hutang sebesar Rp. …….. (…..) Ditambah dengan jasa pinjaman yang telah ditentukan ............% Setiap bulan
-            selama..............( ...) bulan menjadi sebesar Rp: ………. (……) harus dilunasi dalam jangka waktu …… (…..)
-            bulan, dengan ketentuan: <br>
+            Hutang sebesar Rp. {{ number_format($data->nominal_pinjaman, 2, ',', '.') }}
+            ({{ $terbilang }} Rupiah) Ditambah dengan jasa pinjaman yang telah ditentukan ............% Setiap bulan
+            selama..............( ...) bulan menjadi sebesar Rp: ………. (……) harus dilunasi dalam jangka waktu
+            {{ $data->waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan ketentuan: <br>
             ........................ <br>
             pembayaran angsuran harus dilakukan paling lambat pada setiap tanggal ............. dan untuk pertama
             kalinya dimulai pada tanggal ............. dan demikian seterusnya hingga berakhir paling
