@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'password' => 'admin'
         ]);
         User::create([
-            'name' => 'Ahmad Rosyihuddin',
+            'nama_pegawai' => 'Ahmad Rosyihuddin',
             'username' => 'rosyihuddin',
             'password' => '-'
         ]);

@@ -1,122 +1,160 @@
-@extends('layouts.main')
-@section('container')
-    <div class="container-fluid py-4">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <title>
+        Login
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+</head>
+
+<body class="">
+    <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <div class="row">
-                            <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">Data Peminjam</h6>
-                            </div>
-                            <div class="col-6 text-end">
-                                <a class="btn bg-gradient-dark mb-0" href="/create"><i class="fas fa-plus"
-                                        aria-hidden="true"></i>&nbsp;&nbsp;Tambah Data</a>
-                            </div>
+                <!-- Navbar -->
+                {{-- <nav
+                    class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
+                    <div class="container-fluid">
+                        <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
+                            KSP Citra Abadi
+                        </a>
+                        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon mt-2">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navigation">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
+                                        href="../pages/dashboard.html">
+                                        <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-2" href="../pages/profile.html">
+                                        <i class="fa fa-user opacity-6 text-dark me-1"></i>
+                                        Profile
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-2" href="../pages/sign-up.html">
+                                        <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+                                        Sign Up
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-2" href="../pages/sign-in.html">
+                                        <i class="fas fa-key opacity-6 text-dark me-1"></i>
+                                        Sign In
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-xxs font-weight-bolder">
-                                            Tanggal
-                                        </th>
-                                        <th class="text-uppercase text-xxs font-weight-bolder">
-                                            Nama
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder col-3">
-                                            Alamat
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Pekerjaan
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Nominal Pinjaman
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Waktu Pelunasan
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Total Pinjaman
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Jumlah Jaminan
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">
-                                            Surat
-                                        </th>
-                                        <th class="text-center text-uppercase text-xxs font-weight-bolder">Action
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($peminjam as $pj)
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex flex-column justify-content-center"
-                                                    style="padding-left: 0.2cm">
-                                                    <h6 class="mb-0 text-sm">
-                                                        {{ $pj->surat_perjanjian[0]->tanggal_pembuatan }}
-                                                    </h6>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center"
-                                                        style="padding-left: 0.2cm">
-                                                        <h6 class="mb-0 text-sm">{{ $pj->nama_peminjam }}</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="font-weight-bold mb-0 text-sm">{{ $pj->alamat }}</p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <p class="font-weight-bold mb-0 text-sm">{{ $pj->pekerjaan }}</p>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="font-weight-bold mb-0 text-sm">Rp.
-                                                    {{ number_format($pj->nominal_pinjaman, 2, ',', '.') }}</span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span
-                                                    class="font-weight-bold mb-0 text-sm">{{ $pj->waktu_pelunasan }}</span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="font-weight-bold mb-0 text-sm">Rp.
-                                                    {{ number_format($pj->total_pinjaman, 2, ',', '.') }}</span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="font-weight-bold mb-0 text-sm">{{ $pj->jumlah_jaminan }} Unit
-                                                    Kendaraan</span> <br>
-                                                <a class="btn badge badge-sm bg-gradient-info"
-                                                    href="javascript:;">Detail</a>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <a class="btn btn-link text-dark text-sm mb-0 px-0"
-                                                    href="/surat/{{ $pj->id }}">
-                                                    <i class="fas fa-file-pdf text-lg me-1" aria-hidden="true"></i>
-                                                    PDF</a>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i
-                                                        class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit
-                                                </a>
-                                                <a class="btn btn-link text-danger text-gradient px-3 mb-0"
-                                                    href="javascript:;"><i class="far fa-trash-alt me-2"
-                                                        aria-hidden="true"></i>Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                </nav> --}}
+                <!-- End Navbar -->
+            </div>
+        </div>
+    </div>
+    <main class="main-content  mt-0">
+        <section>
+            <div class="page-header min-vh-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+                            <div class="card card-plain">
+                                <div class="card-header pb-0 text-start">
+                                    <h4 class="font-weight-bolder">Sign In</h4>
+                                    <p class="mb-0">Enter your username and password to sign in</p>
+                                </div>
+                                <div class="card-body">
+                                    <form role="form">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control form-control-lg"
+                                                placeholder="Username" aria-label="Username">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control form-control-lg"
+                                                placeholder="Password" aria-label="Password">
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="showPassword">
+                                            <label class="form-check-label" for="showPassword">Tampilkan
+                                                Password</label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button"
+                                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                {{-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                    <p class="mb-4 text-sm mx-auto">
+                                        Don't have an account?
+                                        <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign
+                                            up</a>
+                                    </p>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <div
+                            class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg'); background-size: cover;">
+                                <span class="mask bg-gradient-primary opacity-6"></span>
+                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new
+                                    currency"</h4>
+                                <p class="text-white position-relative">The more effortless the writing looks, the more
+                                    effort the writer actually put into the process.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-@endsection
+        </section>
+    </main>
+    <!--   Core JS Files   -->
+    <script src="/js/core/popper.min.js"></script>
+    <script src="/js/core/bootstrap.min.js"></script>
+    <script src="/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/js/argon-dashboard.min.js?v=2.0.2"></script>
+</body>
+
+</html>

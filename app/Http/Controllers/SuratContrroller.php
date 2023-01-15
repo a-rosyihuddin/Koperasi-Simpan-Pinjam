@@ -7,6 +7,11 @@ use Carbon\Carbon;
 
 class SuratContrroller extends Controller
 {
+    public function index()
+    {
+        return View('index');
+    }
+
     private function penyebut($nilai)
     {
         $nilai = abs($nilai);
@@ -59,6 +64,18 @@ class SuratContrroller extends Controller
                 'terbilang_jumlah_jaminan' => ucwords($this->pembilang($peminjam->jumlah_jaminan)),
                 'today' => Carbon::now()->translatedFormat('d F Y'),
                 'terbilang_angsuran' => ucwords($this->pembilang($peminjam->angsuran)),
+            ]
+        );
+    }
+
+    public function detail(Peminjam $peminjam)
+    {
+        // dd(Peminjam::where('id', $peminjam->id));
+        return View(
+            'detail-peminjam',
+            [
+                'title' => 'Detail Peminjam',
+                'peminjam' => Peminjam::where('id', $peminjam->id)->get()[0]
             ]
         );
     }

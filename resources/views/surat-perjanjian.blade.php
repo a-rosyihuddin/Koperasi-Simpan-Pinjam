@@ -264,7 +264,7 @@
             </tr>
             <tr style="height: 2cm"></tr>
             <tr>
-                <td>...............................</td>
+                <td>{{ $data->surat_perjanjian[0]->user->nama_pegawai }}</td>
                 <td>{{ $data->nama_peminjam }}</td>
             </tr>
             <tr style="height: 20px"></tr>
@@ -274,8 +274,8 @@
             </tr>
             <tr style="height: 2cm"></tr>
             <tr>
-                <td>...............................</td>
-                <td>...............................</td>
+                <td>{{ $data->surat_perjanjian[0]->saksi_1 }}</td>
+                <td>{{ $data->surat_perjanjian[0]->saksi_2 }}</td>
             </tr>
             <tr style="height: 20px"></tr>
         </table>
@@ -293,7 +293,8 @@
             Mulai Tanggal : ………. sampai dengan tanggal : ..................
         </p>
         <p style="margin: 1cm 0 1cm 0">
-            PIHAK KESATU : ................ PIHAK KEDUA : ....................
+            PIHAK KESATU : {{ $data->nama_peminjam }} <span style="padding-left: 2.5cm;"></span> PIHAK KEDUA :
+            {{ $data->surat_perjanjian[0]->user->nama_pegawai }}
         </p>
         <p>
             Tanggal Perpanjangan: ………. Jangka Waktu: …….. (……....) bulan

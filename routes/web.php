@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\SuratContrroller;
-use App\Models\Peminjam;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::resource('/', PeminjamController::class);
-Route::get('/surat/{peminjam:id}', [SuratContrroller::class, 'surat']);
-// Route::get('/', function () {
-//     return view('index');
-// });
-
-// Route::get('/contoh', function () {
-//     return view('contoh');
-// });
-// Route::get('/1', function () {
-//     return view('PERJANJIAN-HUTANG');
-// });
+Route::resource('/peminjam', PeminjamController::class);
+Route::resource('pegawai', UserController::class);
+Route::get('/', [SuratContrroller::class, 'index'])->name('login');
+Route::get('/surat/{peminjam:id}', [SuratContrroller::class, 'surat'])->name('cetak_surat');
+Route::get('/detail-peminjam/{peminjam:id}', [SuratContrroller::class, 'detail'])->name('detail_peminjam');
