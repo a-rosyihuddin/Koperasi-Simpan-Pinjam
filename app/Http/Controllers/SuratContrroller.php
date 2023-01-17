@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Peminjam;
 use Carbon\Carbon;
+use App\Models\Jaminan;
+use App\Models\Peminjam;
 
 class SuratContrroller extends Controller
 {
@@ -64,6 +65,8 @@ class SuratContrroller extends Controller
                 'terbilang_jumlah_jaminan' => ucwords($this->pembilang($peminjam->jumlah_jaminan)),
                 'today' => Carbon::now()->translatedFormat('d F Y'),
                 'terbilang_angsuran' => ucwords($this->pembilang($peminjam->angsuran)),
+                'terbilang_total_pinjaman' => ucwords($this->pembilang($peminjam->total_pinjaman)),
+                'terbilang_roda' => ucwords($this->pembilang($peminjam->jaminan[0]->roda)),
             ]
         );
     }
@@ -72,10 +75,11 @@ class SuratContrroller extends Controller
     {
         // dd(Peminjam::where('id', $peminjam->id));
         return View(
-            'detail-peminjam',
+            'peminjam.detail-peminjam',
             [
                 'title' => 'Detail Peminjam',
-                'peminjam' => Peminjam::where('id', $peminjam->id)->get()[0]
+                'peminjam' => Peminjam::find($peminjam->id),
+                'jaminan' => Jaminan::where('peminjam_id', $peminjam->id)->get()[0]
             ]
         );
     }

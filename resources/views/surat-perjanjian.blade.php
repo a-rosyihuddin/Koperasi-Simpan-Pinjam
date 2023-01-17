@@ -80,8 +80,9 @@
         <p>
             Hutang sebesar Rp. {{ number_format($data->nominal_pinjaman, 2, ',', '.') }}
             ({{ $terbilang_nominal }} Rupiah) Ditambah dengan jasa pinjaman yang telah ditentukan {{ $data->bunga }}%
-            Setiap bulan selama {{ $data->angsuran }} ({{ $terbilang_angsuran }}) bulan menjadi sebesar Rp: ……….
-            (……)
+            Setiap bulan selama {{ $data->angsuran }} ({{ $terbilang_angsuran }}) bulan menjadi sebesar Rp:
+            {{ $data->total_pinjaman }}
+            ({{ $terbilang_total_pinjaman }})
             harus dilunasi dalam
             jangka waktu
             {{ $data->waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan ketentuan: <br>
@@ -182,7 +183,7 @@
             dengan apa yang diperjanjikan menurut akta ini, maka PIHAK KESATU dengan Akta Fiduciaire tertanggal hari ini
             memberi jaminan secara Fiduciaire kepada PIHAK KEDUA atas barang milik PIHAK KESATU yang diserahkan sebagai
             jaminan berupa : {{ $data->jumlah_jaminan }} ({{ $terbilang_jumlah_jaminan }}) unit kendaraan bermotor
-            roda …….. (…….) beserta
+            roda {{ $data->jaminan[0]->roda }} ({{ $terbilang_roda }}) beserta
             BPKB-nya, data-data sebagai
             berikut :
 
@@ -190,37 +191,37 @@
             <tr>
                 <td>Merk/Type</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->merk }}</td>
             </tr>
             <tr>
                 <td>Tahun/Warna</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->tahun }}</td>
             </tr>
             <tr>
                 <td>No. Polisi</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->nomor_polisi }}</td>
             </tr>
             <tr>
                 <td>No. Rangka</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->nomor_rangka }}</td>
             </tr>
             <tr>
                 <td>No. Mesin</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->nomor_mesin }}</td>
             </tr>
             <tr>
                 <td>No. BPKB</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->nomor_bpkb }}</td>
             </tr>
             <tr>
                 <td>Atas Nama</td>
                 <td class="tab-size1">:</td>
-                <td></td>
+                <td class="pd-lf">{{ $data->jaminan[0]->atas_nama }}</td>
             </tr>
         </table>
         </p>

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('jumlah_jaminan');
             $table->string('bunga');
             $table->string('angsuran');
+            $table->enum('status', [0, 1])->default(1);
             $table->timestamps();
         });
     }

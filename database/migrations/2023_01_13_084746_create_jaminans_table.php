@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('jaminans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('peminjam_id')->constrained('peminjams', 'id')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('jumlah_jaminan');
             $table->string('roda');
             $table->string('merk');
             $table->string('tahun');
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->string('nomor_rangka');
             $table->string('nomor_mesin');
             $table->string('nomor_bpkb');
+            $table->string('atas_nama');
             $table->timestamps();
         });
     }

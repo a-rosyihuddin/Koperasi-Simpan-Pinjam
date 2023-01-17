@@ -44,6 +44,8 @@
                                         <input type="text" class="form-control" placeholder="Nama Saksi II"
                                             aria-label="Nama" name="saksi_2" value="{{ old('saksi_2') }}" required>
                                     </div>
+                                    <h5 class="pt-4 text-uppercase text-center">Data Peminjam
+                                    </h5>
                                     <div class="mb-3">
                                         <label for="nama_peminjam">Nama</label>
                                         <input type="text" class="form-control" placeholder="Nama Peminjam"
@@ -96,6 +98,63 @@
                                         <input type="number" class="form-control"
                                             placeholder="Berapa Bulan Untuk Setiap Angsuran"aria-label="angsuran"
                                             name="angsuran" value="{{ old('angsuran') }}" required>
+                                    </div>
+                                    <h5 class="pt-4 text-uppercase text-center">Jaminan
+                                        Hutang
+                                    </h5>
+                                    <div class="mb-3">
+                                        <label for="atas_nama">Atas Nama Kendaraan</label>
+                                        <input type="number" class="form-control"
+                                            placeholder="Atas Nama Kendaraan"aria-label="atas_nama" name="atas_nama"
+                                            value="{{ old('atas_nama') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="roda">Roda Kendaraan</label>
+                                        <input type="number" class="form-control"
+                                            placeholder="Jumlah Roda Kendaraan"aria-label="roda" name="roda"
+                                            value="{{ old('roda') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="merk">Merk Kendaraan</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Merk Kendaraan"aria-label="merk" name="merk"
+                                            value="{{ old('merk') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tahun">Tahun Kendaraan</label>
+                                        <input type="number" class="form-control"
+                                            placeholder="Tahun Kendaraan"aria-label="tahun" name="tahun"
+                                            value="{{ old('tahun') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="warna">Warna Kendaraan</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Warna Kendaraan"aria-label="warna" name="warna"
+                                            value="{{ old('warna') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nomor_polisi">Nomor Polisi</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Nomor Polisi Kendaraan"aria-label="nomor_polisi"
+                                            name="nomor_polisi" value="{{ old('nomor_polisi') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nomor_rangka">Nomor Rangka</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Nomor Polisi Kendaraan"aria-label="nomor_rangka"
+                                            name="nomor_rangka" value="{{ old('nomor_rangka') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nomor_mesin">Nomor Mesin</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Nomor Mesin Dari Kendaraan"aria-label="nomor_mesin"
+                                            name="nomor_mesin" value="{{ old('nomor_mesin') }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nomor_bpkb">Nomor BPKB</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Nomor BPKB Kendaraan"aria-label="nomor_bpkb" name="nomor_bpkb"
+                                            value="{{ old('nomor_bpkb') }}" required>
                                     </div>
                                     <div class="text-center">
                                         <button type="submit"

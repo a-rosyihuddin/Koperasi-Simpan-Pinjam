@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pegawai');
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->enum('status', ['active', 'non active'])->default('active');
+            $table->string('username')->default('-');
+            $table->string('password')->default('-');
+            $table->enum('status', [0, 1])->default(1);
             $table->timestamps();
         });
     }

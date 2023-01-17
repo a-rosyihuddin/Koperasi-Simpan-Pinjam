@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\StorePeminjamRequest;
 use App\Http\Requests\UpdatePeminjamRequest;
+use App\Models\Jaminan;
 use App\Models\Surat_Perjanjian;
 use Carbon\Carbon;
 use Illuminate\Routing\Route;
@@ -22,9 +23,9 @@ class PeminjamController extends Controller
     public function index()
     {
         return View(
-            'peminjam',
+            'peminjam.peminjam',
             [
-                'peminjam' => Peminjam::orderBy('id', 'DESC')->get(),
+                'peminjam' => Peminjam::where('status', '1')->orderBy('id', 'DESC')->get(),
                 'title' => 'Data Peminjam'
             ]
         );
@@ -38,10 +39,10 @@ class PeminjamController extends Controller
     public function create()
     {
         return View(
-            'tambah-peminjam',
+            'peminjam.tambah-peminjam',
             [
                 'title' => 'Tambah Peminjam',
-                'pegawai' => User::where('username', '!=', 'admin')->get()
+                'pegawai' => User::where([['username', '!=', 'admin'], ['status', '1']])->orderBy('id', 'DESC')->get()
             ]
         );
     }
@@ -55,7 +56,7 @@ class PeminjamController extends Controller
     public function store(StorePeminjamRequest $request)
     {
         // $bunga
-        $data = [
+        $data_peminjam = [
             'nama_peminjam' => $request->nama_peminjam,
             'alamat' => $request->alamat,
             'pekerjaan' => $request->pekerjaan,
@@ -66,7 +67,21 @@ class PeminjamController extends Controller
             'bunga' => $request->bunga,
             'angsuran' => $request->angsuran,
         ];
-        Peminjam::create($data);
+        Peminjam::create($data_peminjam);
+
+        $data_jaminan = [
+            'peminjam_id' => Peminjam::orderBy('id', 'DESC')->get()[0]->id,
+            'roda' => $request->roda,
+            'merk' => $request->merk,
+            'tahun' => $request->tahun,
+            'warna' => $request->warna,
+            'nomor_polisi' => $request->nomor_polisi,
+            'nomor_rangka' => $request->nomor_rangka,
+            'nomor_mesin' => $request->nomor_mesin,
+            'nomor_bpkb' => $request->nomor_bpkb,
+            'atas_nama' => $request->atas_nama
+        ];
+        Jaminan::create($data_jaminan);
 
         $surat = [
             'nomor_surat' => 'A/4/ABC/02.PK/2023',
@@ -77,7 +92,8 @@ class PeminjamController extends Controller
             'saksi_2' => $request->saksi_2
         ];
         Surat_Perjanjian::create($surat);
-        return redirect('/peminjam');
+
+        return redirect(Route('peminjam.index'));
     }
 
     /**
@@ -99,7 +115,15 @@ class PeminjamController extends Controller
      */
     public function edit(Peminjam $peminjam)
     {
-        //
+        return View(
+            'peminjam.edit-peminjam',
+            [
+                'title' => 'Edit Peminjam',
+                'peminjam' => $peminjam,
+                'pegawai' => User::where([['username', '!=', 'admin'], ['status', '1']])->orderBy('id', 'DESC')->get(),
+                'jaminan' => Jaminan::find($peminjam->id)
+            ]
+        );
     }
 
     /**
@@ -111,7 +135,40 @@ class PeminjamController extends Controller
      */
     public function update(UpdatePeminjamRequest $request, Peminjam $peminjam)
     {
-        //
+        $data_peminjam = [
+            'nama_peminjam' => $request->nama_peminjam,
+            'alamat' => $request->alamat,
+            'pekerjaan' => $request->pekerjaan,
+            'nominal_pinjaman' => $request->nominal_pinjaman,
+            'waktu_pelunasan' => $request->waktu_pelunasan,
+            'total_pinjaman' => $request->total_pinjaman,
+            'jumlah_jaminan' => $request->jumlah_jaminan,
+            'bunga' => $request->bunga,
+            'angsuran' => $request->angsuran,
+        ];
+        $peminjam->update($data_peminjam);
+
+        $data_jaminan = [
+            'roda' => $request->roda,
+            'merk' => $request->merk,
+            'tahun' => $request->tahun,
+            'warna' => $request->warna,
+            'nomor_polisi' => $request->nomor_polisi,
+            'nomor_rangka' => $request->nomor_rangka,
+            'nomor_mesin' => $request->nomor_mesin,
+            'nomor_bpkb' => $request->nomor_bpkb,
+            'atas_nama' => $request->atas_nama,
+        ];
+        $peminjam->jaminan[0]->update($data_jaminan);
+
+        $surat = [
+            'user_id' => $request->user_id,
+            'saksi_1' => $request->saksi_1,
+            'saksi_2' => $request->saksi_2
+        ];
+        $peminjam->surat_perjanjian[0]->update($surat);
+
+        return redirect(Route('peminjam.index'));
     }
 
     /**
@@ -120,9 +177,9 @@ class PeminjamController extends Controller
      * @param  \App\Models\Peminjam  $peminjam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Peminjam $peminjam)
+    public function destroy($id)
     {
-        Peminjam::destroy($peminjam->id);
+        Peminjam::where('id', $id)->update(['status' => '0']);
         return redirect(Route('peminjam.index'));
     }
 }

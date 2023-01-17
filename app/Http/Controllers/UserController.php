@@ -15,10 +15,10 @@ class UserController extends Controller
     public function index()
     {
         return View(
-            'pegawai',
+            'pegawai.pegawai',
             [
                 'title' => 'Data Pegawai',
-                'pegawai' => User::where('username', '!=', 'admin')->orderBy('id', 'DESC')->get()
+                'pegawai' => User::where([['username', '!=', 'admin'], ['status', '1']])->orderBy('id', 'DESC')->get()
             ]
         );
     }
@@ -30,7 +30,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return View(
+            'pegawai.tambah-pegawai',
+            [
+                'title' => 'Tambah Pegawai',
+            ]
+        );
     }
 
     /**
@@ -41,7 +46,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->nama_pegawai);
+        User::create([
+            'nama_pegawai' => $request->nama_pegawai,
+        ]);
+        return redirect(Route('pegawai.index'));
     }
 
     /**
@@ -63,7 +72,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return View(
+            'pegawai.edit-pegawai',
+            [
+                'title' => 'Edit Pegawai',
+                'pegawai' => User::find($id)
+            ]
+        );
     }
 
     /**
@@ -75,7 +90,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd(User::find($id);
+        User::where('id', $id)->update(['nama_pegawai' => $request->nama_pegawai]);
+        return redirect(Route('pegawai.index'));
     }
 
     /**
@@ -84,10 +101,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $pegawai)
+    public function destroy($id)
     {
-        $a = $pegawai->update(['status' => 'non active']);
-        dd($a);
+        User::where('id', $id)->update(['status' => '0']);
         return redirect(Route('pegawai.index'));
     }
 }

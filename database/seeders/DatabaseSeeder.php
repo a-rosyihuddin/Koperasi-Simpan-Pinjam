@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(5)->create();
+        \App\Models\User::factory(3)->create();
         \App\Models\User::create([
             'nama_pegawai' => 'Admin',
             'username' => 'admin',
-            'password' => 'admin'
+            'password' => 'admin',
         ]);
 
         // \App\Models\User::factory()->create([
@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PeminjamSeeder::class,
             SuratPerjanjianSeeder::class,
+            JaminanSeeder::class
         ]);
     }
 }
