@@ -2,15 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Carbon\Carbon;
 use App\Models\Jaminan;
 use App\Models\Peminjam;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SuratContrroller extends Controller
 {
     public function index()
     {
         return View('index');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('dashboard'));
+        }
+        return back()->withErrors(['loginError' => 'Username Atau Password Salah']);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerate();
+        return redirect()->route('login');
     }
 
     private function penyebut($nilai)
@@ -53,15 +77,32 @@ class SuratContrroller extends Controller
         return $hasil;
     }
 
+    public  function diffInMonths(\DateTime $date1, \DateTime $date2)
+    {
+        $diff =  $date1->diff($date2);
+
+        $months = $diff->y * 12 + $diff->m + $diff->d / 30;
+
+        return (int) round($months);
+    }
+
+
     public function surat(Peminjam $peminjam)
     {
-        setlocale(LC_ALL, 'IND');
+
+
+        // setlocale(LC_ALL, 'IND');
+        $waktu_pembuatan = new DateTime($peminjam->surat_perjanjian[0]->tanggal_pembuatan);
+        $waktu_pelunasan = new DateTime($peminjam->waktu_pelunasan);
+        $pelunasan = $this->diffInMonths($waktu_pelunasan, $waktu_pembuatan);
+        // dd($this->diffInMonths($waktu_pelunasan, $waktu_pembuatan));
         return View(
             'surat-perjanjian',
             [
                 'data' => $peminjam,
                 'terbilang_nominal' => ucwords($this->pembilang($peminjam->nominal_pinjaman)),
-                'terbilang_waktu_pelunasan' => ucwords($this->pembilang($peminjam->waktu_pelunasan)),
+                'waktu_pelunasan' => ucwords($pelunasan),
+                'terbilang_waktu_pelunasan' => ucwords($this->pembilang($pelunasan)),
                 'terbilang_jumlah_jaminan' => ucwords($this->pembilang($peminjam->jumlah_jaminan)),
                 'today' => Carbon::now()->translatedFormat('d F Y'),
                 'terbilang_angsuran' => ucwords($this->pembilang($peminjam->angsuran)),
@@ -76,6 +117,33 @@ class SuratContrroller extends Controller
         // dd(Peminjam::where('id', $peminjam->id));
         return View(
             'peminjam.detail-peminjam',
+            [
+                'title' => 'Detail Peminjam',
+                'peminjam' => Peminjam::find($peminjam->id),
+                'jaminan' => Jaminan::where('peminjam_id', $peminjam->id)->get()[0]
+            ]
+        );
+    }
+
+    public function dashboard()
+    {
+        $today = Carbon::now();
+        return View(
+            'dashboard.dashboard',
+            [
+                'title' => 'Dashboard',
+                'today' => $today->translatedFormat('d F Y'),
+                'peminjam' => Peminjam::where([['status', '1'], ['waktu_pelunasan', '<=', $today]])->orderBy('id', 'DESC')->get(),
+                'peminjam_all' => Peminjam::where([['status', '1']])->orderBy('id', 'DESC')->get()
+            ]
+        );
+    }
+
+    public function detailDashboard(Peminjam $peminjam)
+    {
+
+        return View(
+            'dashboard.detail-peminjam',
             [
                 'title' => 'Detail Peminjam',
                 'peminjam' => Peminjam::find($peminjam->id),

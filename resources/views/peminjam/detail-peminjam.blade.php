@@ -31,6 +31,12 @@
                                 <form role="form" method="POST" action="{{ Route('peminjam.store') }}">
                                     @csrf
                                     <div class="mb-3">
+                                        <label for="nomor_surat">Nomor Surat</label>
+                                        <input type="text" class="form-control" placeholder="Nomor Surat"
+                                            aria-label="Nomor Surat" name="nomor_surat"
+                                            value="{{ $peminjam->surat_perjanjian[0]->nomor_surat }}" disabled>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="nama_pegawai">Nama Pegawai</label>
                                         <input type="text" class="form-control" placeholder="Nama Saksi I"
                                             aria-label="Nama" name="nama_pegawai"
@@ -76,7 +82,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="waktu_pelunasan">Waktu Pelunasan</label>
-                                        <input type="number" class="form-control"
+                                        <input type="date" class="form-control"
                                             placeholder="Teanggat Waktu Pelunasan Hutang Berapa Bulan"aria-label="waktu_pelunasan"
                                             name="waktu_pelunasan" value="{{ $peminjam->waktu_pelunasan }}" disabled>
                                     </div>

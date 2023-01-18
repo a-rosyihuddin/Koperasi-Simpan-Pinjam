@@ -7,11 +7,21 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">Tambah Peminjam</h6>
+                                <h6 class="mb-0">Detail Peminjam</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a class="btn bg-gradient-primary mb-0" href="{{ Route('peminjam.index') }}">
-                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;Kembali</a>
+                                <form action="{{ Route('peminjam.destroy', $peminjam->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn bg-gradient-danger mb-0">
+                                        <i class="far fa-trash-alt" aria-hidden="true"></i>&nbsp;&nbsp;Hapus</button>
+
+                                    <a class="btn bg-gradient-warning mb-0"
+                                        href="{{ Route('peminjam.edit', $peminjam->id) }}">
+                                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;&nbsp;Edit</a>
+                                    <a class="btn bg-gradient-primary mb-0" href="{{ Route('dashboard') }}">
+                                        <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;Kembali</a>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -23,148 +33,140 @@
                                     <div class="mb-3">
                                         <label for="nomor_surat">Nomor Surat</label>
                                         <input type="text" class="form-control" placeholder="Nomor Surat"
-                                            aria-label="Nomor Surat" name="nomor_surat" value="{{ old('nomor_surat') }}"
-                                            required autofocus>
+                                            aria-label="Nomor Surat" name="nomor_surat"
+                                            value="{{ $peminjam->surat_perjanjian[0]->nomor_surat }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nama_pegawai">Nama Pegawai</label>
-                                        <select class="form-control custom-select my-1 mr-sm-2" name="user_id" required>
-                                            <option>Pilih...</option>
-                                            @foreach ($pegawai as $pg)
-                                                @if (old('user_id') == $pg->id)
-                                                    <option selected value="{{ $pg->id }}">{{ $pg->nama_pegawai }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $pg->id }}">{{ $pg->nama_pegawai }}
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" placeholder="Nama Saksi I"
+                                            aria-label="Nama" name="nama_pegawai"
+                                            value="{{ $peminjam->surat_perjanjian[0]->user->nama_pegawai }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="saksi_1">Saksi I</label>
                                         <input type="text" class="form-control" placeholder="Nama Saksi I"
-                                            aria-label="Nama" name="saksi_1" value="{{ old('saksi_1') }}" required>
+                                            aria-label="Nama" name="saksi_1"
+                                            value="{{ $peminjam->surat_perjanjian[0]->saksi_1 }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="saksi_2">Saksi II</label>
                                         <input type="text" class="form-control" placeholder="Nama Saksi II"
-                                            aria-label="Nama" name="saksi_2" value="{{ old('saksi_2') }}" required>
+                                            aria-label="Nama" name="saksi_2"
+                                            value="{{ $peminjam->surat_perjanjian[0]->saksi_2 }}" disabled>
                                     </div>
+
                                     <h5 class="pt-4 text-uppercase text-center">Data Peminjam
                                     </h5>
                                     <div class="mb-3">
                                         <label for="nama_peminjam">Nama</label>
                                         <input type="text" class="form-control" placeholder="Nama Peminjam"
-                                            aria-label="Nama" name="nama_peminjam" value="{{ old('nama_peminjam') }}"
-                                            required>
+                                            aria-label="Nama" name="nama_peminjam" value="{{ $peminjam->nama_peminjam }}"
+                                            disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control" placeholder="Alamat" aria-label="Alamat"
-                                            name="alamat" value="{{ old('alamat') }}" required>
+                                            name="alamat" value="{{ $peminjam->alamat }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="pekerjaan">Pekerjaan</label>
                                         <input type="text" class="form-control"
                                             placeholder="Pekerjaan"aria-label="pekerjaan" name="pekerjaan"
-                                            value="{{ old('pekerjaan') }}" required>
+                                            value="{{ $peminjam->pekerjaan }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nominal_pinjaman">Nominal Pinjaman</label>
                                         <input type="number" class="form-control"
                                             placeholder="Nominal Pinjaman"aria-label="nominal_pinjaman"
-                                            name="nominal_pinjaman" value="{{ old('nominal_pinjaman') }}" required>
+                                            name="nominal_pinjaman" value="{{ $peminjam->nominal_pinjaman }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="waktu_pelunasan">Waktu Pelunasan</label>
-                                        <input type="date" class="form-control"
+                                        <input type="number" class="form-control"
                                             placeholder="Teanggat Waktu Pelunasan Hutang Berapa Bulan"aria-label="waktu_pelunasan"
-                                            name="waktu_pelunasan" value="{{ old('waktu_pelunasan') }}" required>
+                                            name="waktu_pelunasan" value="{{ $peminjam->waktu_pelunasan }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="total_pinjaman">Total Pinjaman</label>
                                         <input type="number" class="form-control"
                                             placeholder="Total Pinjaman"aria-label="total_pinjaman" name="total_pinjaman"
-                                            value="{{ old('total_pinjaman') }}" required>
+                                            value="{{ $peminjam->total_pinjaman }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jumlah_jaminan">Jumlah Jaminan</label>
                                         <input type="number" class="form-control"
                                             placeholder="Berapa Unit Kendaraan Yang Digunakan Sebagai Jaminan"aria-label="jumlah_jaminan"
-                                            name="jumlah_jaminan" value="{{ old('jumlah_jaminan') }}" required>
+                                            name="jumlah_jaminan" value="{{ $peminjam->jumlah_jaminan }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="bunga">Bunga</label>
                                         <input type="number" step="0.01" class="form-control"
                                             placeholder="Berapa Persen Bunga"aria-label="bunga" name="bunga"
-                                            value="{{ old('bunga') }}" required>
+                                            value="{{ $peminjam->bunga }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="angsuran">Angsuran</label>
                                         <input type="number" class="form-control"
                                             placeholder="Berapa Bulan Untuk Setiap Angsuran"aria-label="angsuran"
-                                            name="angsuran" value="{{ old('angsuran') }}" required>
+                                            name="angsuran" value="{{ $peminjam->angsuran }}" disabled>
                                     </div>
+
                                     <h5 class="pt-4 text-uppercase text-center">Jaminan
                                         Hutang
                                     </h5>
                                     <div class="mb-3">
                                         <label for="atas_nama">Atas Nama Kendaraan</label>
-                                        <input type="number" class="form-control"
+                                        <input type="text" class="form-control"
                                             placeholder="Atas Nama Kendaraan"aria-label="atas_nama" name="atas_nama"
-                                            value="{{ old('atas_nama') }}" required>
+                                            value="{{ $jaminan->atas_nama }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="roda">Roda Kendaraan</label>
                                         <input type="number" class="form-control"
                                             placeholder="Jumlah Roda Kendaraan"aria-label="roda" name="roda"
-                                            value="{{ old('roda') }}" required>
+                                            value="{{ $jaminan->roda }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="merk">Merk Kendaraan</label>
                                         <input type="text" class="form-control"
                                             placeholder="Merk Kendaraan"aria-label="merk" name="merk"
-                                            value="{{ old('merk') }}" required>
+                                            value="{{ $jaminan->merk }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="tahun">Tahun Kendaraan</label>
                                         <input type="number" class="form-control"
                                             placeholder="Tahun Kendaraan"aria-label="tahun" name="tahun"
-                                            value="{{ old('tahun') }}" required>
+                                            value="{{ $jaminan->tahun }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="warna">Warna Kendaraan</label>
                                         <input type="text" class="form-control"
                                             placeholder="Warna Kendaraan"aria-label="warna" name="warna"
-                                            value="{{ old('warna') }}" required>
+                                            value="{{ $jaminan->warna }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nomor_polisi">Nomor Polisi</label>
                                         <input type="text" class="form-control"
                                             placeholder="Nomor Polisi Kendaraan"aria-label="nomor_polisi"
-                                            name="nomor_polisi" value="{{ old('nomor_polisi') }}" required>
+                                            name="nomor_polisi" value="{{ $jaminan->nomor_polisi }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nomor_rangka">Nomor Rangka</label>
                                         <input type="text" class="form-control"
                                             placeholder="Nomor Polisi Kendaraan"aria-label="nomor_rangka"
-                                            name="nomor_rangka" value="{{ old('nomor_rangka') }}" required>
+                                            name="nomor_rangka" value="{{ $jaminan->nomor_rangka }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nomor_mesin">Nomor Mesin</label>
                                         <input type="text" class="form-control"
                                             placeholder="Nomor Mesin Dari Kendaraan"aria-label="nomor_mesin"
-                                            name="nomor_mesin" value="{{ old('nomor_mesin') }}" required>
+                                            name="nomor_mesin" value="{{ $jaminan->nomor_mesin }}" disabled>
                                     </div>
                                     <div class="mb-3">
                                         <label for="nomor_bpkb">Nomor BPKB</label>
                                         <input type="text" class="form-control"
                                             placeholder="Nomor BPKB Kendaraan"aria-label="nomor_bpkb" name="nomor_bpkb"
-                                            value="{{ old('nomor_bpkb') }}" required>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit"
-                                            class="btn bg-gradient-dark w-100 my-4 mb-2">Tambah</button>
+                                            value="{{ $jaminan->nomor_bpkb }}" disabled>
                                     </div>
                                 </form>
                             </div>

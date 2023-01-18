@@ -88,17 +88,23 @@
                                     <p class="mb-0">Enter your username and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form role="form">
+                                    <form role="form" method="POST" action="{{ Route('login.action') }}">
+                                        @csrf
+                                        @error('loginError')
+                                            <div class="alert alert-warning alert-dismissible fade show">{{ $message }}
+                                            </div>
+                                        @enderror
                                         <div class="mb-3">
                                             <input type="text" class="form-control form-control-lg"
-                                                placeholder="Username" aria-label="Username">
+                                                placeholder="Username" aria-label="Username" name="username" autofocus>
                                         </div>
                                         <div class="mb-3">
-                                            <input type="password" class="form-control form-control-lg"
-                                                placeholder="Password" aria-label="Password">
+                                            <input type="password" class="form-control form-control-lg form-password"
+                                                placeholder="Password" aria-label="Password" name="password">
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="showPassword">
+                                            <input class="form-check-input showPassword" type="checkbox"
+                                                id="showPassword">
                                             <label class="form-check-label" for="showPassword">Tampilkan
                                                 Password</label>
                                         </div>
@@ -107,7 +113,7 @@
                                             <label class="form-check-label" for="rememberMe">Remember me</label>
                                         </div>
                                         <div class="text-center">
-                                            <button type="button"
+                                            <button type="submit"
                                                 class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
                                         </div>
                                     </form>
@@ -142,6 +148,8 @@
     <script src="/js/core/bootstrap.min.js"></script>
     <script src="/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
+        integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -150,6 +158,16 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+
+        $(document).ready(function() {
+            $('.showPassword').click(function() {
+                if ($(this).is(':checked')) {
+                    $('.form-password').attr('type', 'text');
+                } else {
+                    $('.form-password').attr('type', 'password');
+                }
+            });
+        });
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

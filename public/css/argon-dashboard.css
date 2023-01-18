@@ -21179,7 +21179,7 @@ fieldset:disabled .btn {
 
 .input-group> :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
   border-left: #fff !important;
-  border-right: #fff !important;
+  /* border-right: #fff !important; */
 }
 
 .input-group.focused .input-group-text {

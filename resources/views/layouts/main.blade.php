@@ -19,6 +19,7 @@
     <link href="/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -41,7 +42,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Menu pages</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if ($title == 'Dashboard') active @endif" href="#">
+                    <a class="nav-link @if ($title == 'Dashboard') active @endif" href="{{ Route('dashboard') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
@@ -81,23 +82,28 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
                                 href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+                        @if ($title == 'Dashboard')
+                            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
                     </ol>
                     <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+                @elseif ($title == 'Data Peminjam')
+                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Peminjam</li>
+                    </ol>
+                    <h6 class="font-weight-bolder text-white mb-0">Data Peminjam</h6>
+                @else
+                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Pegawai</li>
+                    </ol>
+                    <h6 class="font-weight-bolder text-white mb-0">Data Pegawai</h6>
+                    @endif
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group">
-                            <span class="input-group-text text-body"><i class="fas fa-search"
-                                    aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" placeholder="Type here...">
-                        </div>
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                                <span class="d-sm-inline d-none">{{ Auth::user()->nama_pegawai }}</span>
                             </a>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -109,11 +115,21 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="nav-item px-3 d-flex align-items-center">
-                            <a href="javascript:;" class="nav-link text-white p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                            </a>
-                        </li>
+
+                        @auth
+                            <li class="nav-item px-1 d-flex align-items-center">
+                                {{-- <a href="" class="nav-link text-white p-0"> --}}
+                                <form action="{{ Route('logout') }}" method="POST">
+                                    @csrf
+                                    {{-- <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i> --}}
+                                    <button type="submit" class="fa fa-sign-out text-white cursor-pointer"
+                                        data-toggle="tooltip" data-placement="bottom" title="Sign Out"
+                                        style="border: none;
+                                        background:none;"></button>
+                                </form>
+                                {{-- </a> --}}
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
@@ -121,7 +137,7 @@
         <!-- End Navbar -->
         @yield('container')
         {{-- Watermark --}}
-        <footer class="footer pt-3  ">
+        {{-- <footer class="footer pt-3  ">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-lg-between">
                     <div class="col-lg-6 mb-lg-0 mb-4">
@@ -159,7 +175,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> --}}
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -334,6 +350,21 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/js/argon-dashboard.min.js?v=2.0.2"></script>
+    <script>
+        $('#search-peminjam').on('keyup', function() {
+            $value = $(this).val();
+            $.ajax({
+                type: 'get',
+                url: {{ Route('peminjam.search') }},
+                data: {
+                    'search': $value
+                },
+                success: function(data) {
+                    $('tbody').html(data);
+                }
+            });
+        })
+    </script>
 </body>
 
 </html>

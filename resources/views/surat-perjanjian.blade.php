@@ -65,7 +65,8 @@
             diterima
             PIHAK KESATU dari PIHAK KEDUA di kantor PIHAK KEDUA.
             <br>
-            Pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan untuk penerimaan uang tersebut akta
+            Pada tanggal {{ date('d F Y', strtotime($data->surat_perjanjian[0]->tanggal_pembuatan)) }} dan untuk
+            penerimaan uang tersebut akta
             ini dinyatakan berlaku sebagai tanda
             penerimaan yang sah (Kwitansi) dan PIHAK KEDUA dengan ini menerima dengan baik Perjanjian Hutang dari PIHAK
             KESATU
@@ -83,14 +84,15 @@
             Setiap bulan selama {{ $data->angsuran }} ({{ $terbilang_angsuran }}) bulan menjadi sebesar Rp:
             {{ $data->total_pinjaman }}
             ({{ $terbilang_total_pinjaman }})
-            harus dilunasi dalam
-            jangka waktu
-            {{ $data->waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan ketentuan: <br>
+            harus dilunasi dalam jangka waktu
+            {{ $waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan
+            ketentuan: <br>
             ........................ <br>
             pembayaran angsuran harus dilakukan paling lambat pada setiap tanggal
-            {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan untuk pertama
-            kalinya dimulai pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} dan demikian seterusnya
-            hingga berakhir paling lambat pada tanggal {{ $data->surat_perjanjian[0]->tanggal_pembuatan }} <br>
+            {{ date('d F Y', strtotime($data->surat_perjanjian[0]->tanggal_pembuatan)) }} dan untuk pertama
+            kalinya dimulai pada tanggal {{ date('d F Y', strtotime($data->surat_perjanjian[0]->tanggal_pembuatan)) }}
+            dan demikian seterusnya
+            hingga berakhir paling lambat pada tanggal {{ date('d F Y', strtotime($data->waktu_pelunasan)) }} <br>
             Jasa Pinjaman sewaktu-waktu dapat berubah sesuai dengan suku bunga
             pasar. Perubahan jasa
             pinjaman diberitahukan

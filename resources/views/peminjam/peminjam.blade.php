@@ -6,10 +6,15 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="row">
-                            <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">Data Peminjam</h6>
+                            <div class="col-3 d-flex align-items-center">
+                                <div class="input-group">
+                                    <span class="input-group-text text-body "><i class="fas fa-search"
+                                            aria-hidden="true"></i></span>
+                                    <input type="text" id="search-peminjam" class="form-control"
+                                        placeholder="Type here...">
+                                </div>
                             </div>
-                            <div class="col-6 text-end">
+                            <div class="col-9 text-end">
                                 <a class="btn bg-gradient-dark mb-0" href="{{ Route('peminjam.create') }}"><i
                                         class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Tambah Data</a>
                             </div>

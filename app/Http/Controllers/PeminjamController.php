@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Jaminan;
 use App\Models\Peminjam;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use App\Models\Surat_Perjanjian;
 use Illuminate\Contracts\View\View;
 use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\StorePeminjamRequest;
 use App\Http\Requests\UpdatePeminjamRequest;
-use App\Models\Jaminan;
-use App\Models\Surat_Perjanjian;
-use Carbon\Carbon;
-use Illuminate\Routing\Route;
 
 class PeminjamController extends Controller
 {
@@ -84,7 +85,7 @@ class PeminjamController extends Controller
         Jaminan::create($data_jaminan);
 
         $surat = [
-            'nomor_surat' => 'A/4/ABC/02.PK/2023',
+            'nomor_surat' => $request->nomor_surat,
             'peminjam_id' => Peminjam::orderBy('id', 'DESC')->get()[0]->id,
             'user_id' => $request->user_id,
             'tanggal_pembuatan' => Carbon::now(),
@@ -181,5 +182,33 @@ class PeminjamController extends Controller
     {
         Peminjam::where('id', $id)->update(['status' => '0']);
         return redirect(Route('peminjam.index'));
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $output = "";
+            $products = Peminjam::where([
+                ['nama_peminjam', 'LIKE', '%' . $request->search . "%"],
+                ['alamat', 'LIKE', '%' . $request->search . "%"],
+                ['pekerjaan', 'LIKE', '%' . $request->search . "%"],
+                ['nominal_peminjam', 'LIKE', '%' . $request->search . "%"],
+                ['total_peminjam', 'LIKE', '%' . $request->search . "%"],
+                ['jumlah_jaminan', 'LIKE', '%' . $request->search . "%"],
+                ['bunga', 'LIKE', '%' . $request->search . "%"],
+                ['angsuran', 'LIKE', '%' . $request->search . "%"],
+            ])->get();
+            if ($products) {
+                foreach ($products as $key => $product) {
+                    $output .= '<tr>' .
+                        '<td>' . $product->id . '</td>' .
+                        '<td>' . $product->title . '</td>' .
+                        '<td>' . $product->description . '</td>' .
+                        '<td>' . $product->price . '</td>' .
+                        '</tr>';
+                }
+                return Response($output);
+            }
+        }
     }
 }

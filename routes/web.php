@@ -16,9 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth')->group(function () {
+    Route::resource('/peminjam', PeminjamController::class);
+    Route::resource('pegawai', UserController::class);
+    Route::get('/surat/{peminjam:id}', [SuratContrroller::class, 'surat'])->name('cetak_surat');
+    Route::get('/detail-peminjam/{peminjam:id}', [SuratContrroller::class, 'detail'])->name('detail_peminjam');
+    Route::get('/dashboard', [SuratContrroller::class, 'dashboard'])->name('dashboard');
+    Route::get('/detail-peminjamd/{peminjam:id}', [SuratContrroller::class, 'detailDashboard'])->name('detailDashboard');
+    Route::get('/search-peminjam', [PeminjamController::class, 'search'])->name('peminjam.search');
+});
 
-Route::resource('/peminjam', PeminjamController::class);
-Route::resource('pegawai', UserController::class);
-Route::get('/', [SuratContrroller::class, 'index'])->name('login');
-Route::get('/surat/{peminjam:id}', [SuratContrroller::class, 'surat'])->name('cetak_surat');
-Route::get('/detail-peminjam/{peminjam:id}', [SuratContrroller::class, 'detail'])->name('detail_peminjam');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [SuratContrroller::class, 'index'])->name('login');
+    Route::post('/login', [SuratContrroller::class, 'login'])->name('login.action');
+});
+Route::post('/logout', [SuratContrroller::class, 'logout'])->name('logout');

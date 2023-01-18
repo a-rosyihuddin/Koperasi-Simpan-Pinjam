@@ -7,7 +7,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">Tambah Peminjam</h6>
+                                <h6 class="mb-0">Edit Peminjam</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <a class="btn bg-gradient-primary mb-0" href="{{ Route('peminjam.index') }}">
@@ -21,6 +21,12 @@
                                 <form role="form" method="POST" action="{{ Route('peminjam.update', $peminjam->id) }}">
                                     @csrf
                                     @method('PUT')
+                                    <div class="mb-3">
+                                        <label for="nomor_surat">Nomor Surat</label>
+                                        <input type="text" class="form-control" placeholder="Nomor Surat"
+                                            aria-label="Nomor Surat" name="nomor_surat"
+                                            value="{{ $peminjam->surat_perjanjian[0]->nomor_surat }}" required autofocus>
+                                    </div>
                                     <div class="mb-3">
                                         <label for="nama_pegawai">Nama Pegawai</label>
                                         <select class="form-control custom-select my-1 mr-sm-2" name="user_id" autofocus>
@@ -58,7 +64,8 @@
                                         <div class="mb-3">
                                             <label for="alamat">Alamat</label>
                                             <input type="text" class="form-control" placeholder="Alamat"
-                                                aria-label="Alamat" name="alamat" value="{{ $peminjam->alamat }}" required>
+                                                aria-label="Alamat" name="alamat" value="{{ $peminjam->alamat }}"
+                                                required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="pekerjaan">Pekerjaan</label>
@@ -74,7 +81,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="waktu_pelunasan">Waktu Pelunasan</label>
-                                            <input type="number" class="form-control"
+                                            <input type="date" class="form-control"
                                                 placeholder="Teanggat Waktu Pelunasan Hutang Berapa Bulan"aria-label="waktu_pelunasan"
                                                 name="waktu_pelunasan" value="{{ $peminjam->waktu_pelunasan }}" required>
                                         </div>
