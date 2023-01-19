@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="waktu_pelunasan">Waktu Pelunasan</label>
-                                        <input type="number" class="form-control"
+                                        <input type="date" class="form-control"
                                             placeholder="Teanggat Waktu Pelunasan Hutang Berapa Bulan"aria-label="waktu_pelunasan"
                                             name="waktu_pelunasan" value="{{ $peminjam->waktu_pelunasan }}" disabled>
                                     </div>
@@ -109,6 +109,12 @@
                                         <input type="number" class="form-control"
                                             placeholder="Berapa Bulan Untuk Setiap Angsuran"aria-label="angsuran"
                                             name="angsuran" value="{{ $peminjam->angsuran }}" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ketentuan">Ketentuan</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Ketentuan"aria-label="ketentuan" name="ketentuan"
+                                            value="{{ $peminjam->ketentuan }}" disabled>
                                     </div>
 
                                     <h5 class="pt-4 text-uppercase text-center">Jaminan

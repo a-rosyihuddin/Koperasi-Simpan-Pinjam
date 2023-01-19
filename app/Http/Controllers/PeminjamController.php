@@ -67,6 +67,7 @@ class PeminjamController extends Controller
             'jumlah_jaminan' => $request->jumlah_jaminan,
             'bunga' => $request->bunga,
             'angsuran' => $request->angsuran,
+            'ketentuan' => $request->ketentuan
         ];
         Peminjam::create($data_peminjam);
 
@@ -146,6 +147,7 @@ class PeminjamController extends Controller
             'jumlah_jaminan' => $request->jumlah_jaminan,
             'bunga' => $request->bunga,
             'angsuran' => $request->angsuran,
+            'ketentuan' => $request->ketentuan
         ];
         $peminjam->update($data_peminjam);
 

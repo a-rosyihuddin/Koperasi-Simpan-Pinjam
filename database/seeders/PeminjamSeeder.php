@@ -24,7 +24,8 @@ class PeminjamSeeder extends Seeder
             'total_pinjaman' => 20000000,
             'jumlah_jaminan' => 2,
             'bunga' => 3,
-            'angsuran' => 3
+            'angsuran' => 3,
+            'ketentuan' => 'dasdbjk'
 
         ]);
         Peminjam::create([
@@ -36,7 +37,8 @@ class PeminjamSeeder extends Seeder
             'total_pinjaman' => 1000000,
             'jumlah_jaminan' => 2,
             'bunga' => 3.5,
-            'angsuran' => 3
+            'angsuran' => 3,
+            'ketentuan' => 'dasdbjk'
         ]);
         Peminjam::create([
             'nama_peminjam' => 'Ahmad Fanani',
@@ -47,7 +49,8 @@ class PeminjamSeeder extends Seeder
             'total_pinjaman' => 10000000,
             'jumlah_jaminan' => 2,
             'bunga' => 3.5,
-            'angsuran' => 3
+            'angsuran' => 3,
+            'ketentuan' => 'dasdbjk'
         ]);
     }
 }

@@ -110,6 +110,12 @@
                                             placeholder="Berapa Bulan Untuk Setiap Angsuran"aria-label="angsuran"
                                             name="angsuran" value="{{ $peminjam->angsuran }}" disabled>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="ketentuan">Ketentuan</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Ketentuan"aria-label="ketentuan" name="ketentuan"
+                                            value="{{ $peminjam->ketentuan }}" disabled>
+                                    </div>
 
                                     <h5 class="pt-4 text-uppercase text-center">Jaminan
                                         Hutang

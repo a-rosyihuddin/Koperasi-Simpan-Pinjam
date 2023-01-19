@@ -43,7 +43,7 @@
             <tr>
                 <td>Nama</td>
                 <td class="tab-size1">:</td>
-                <td class="pd-lf"></td>
+                <td class="pd-lf"> {{ $data->surat_perjanjian[0]->user->nama_pegawai }}</td>
             </tr>
             <tr>
                 <td class="align-top">Pekerjaan</td>
@@ -87,7 +87,7 @@
             harus dilunasi dalam jangka waktu
             {{ $waktu_pelunasan }} ({{ $terbilang_waktu_pelunasan }}) bulan, dengan
             ketentuan: <br>
-            ........................ <br>
+            {{ $data->ketentuan }} <br>
             pembayaran angsuran harus dilakukan paling lambat pada setiap tanggal
             {{ date('d F Y', strtotime($data->surat_perjanjian[0]->tanggal_pembuatan)) }} dan untuk pertama
             kalinya dimulai pada tanggal {{ date('d F Y', strtotime($data->surat_perjanjian[0]->tanggal_pembuatan)) }}

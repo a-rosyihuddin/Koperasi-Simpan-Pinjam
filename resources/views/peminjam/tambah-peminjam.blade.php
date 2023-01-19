@@ -105,6 +105,7 @@
                                             placeholder="Berapa Bulan Untuk Setiap Angsuran"aria-label="angsuran"
                                             name="angsuran" value="{{ old('angsuran') }}" required>
                                     </div>
+                                    'ketentuan' => $request->ketentuan
                                     <h5 class="pt-4 text-uppercase text-center">Jaminan
                                         Hutang
                                     </h5>
